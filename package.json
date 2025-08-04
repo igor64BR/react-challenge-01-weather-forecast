@@ -6,20 +6,37 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "tcm": "npx tcm src --include \"**/*.module.css\" --watch",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
+    "next": "15.4.5",
     "react": "19.1.0",
-    "react-dom": "19.1.0",
-    "next": "15.4.5"
+    "react-dom": "19.1.0"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@chromatic-com/storybook": "4.1.0",
+    "@eslint/eslintrc": "^3",
+    "@storybook/addon-a11y": "9.1.0",
+    "@storybook/addon-docs": "9.1.0",
+    "@storybook/addon-onboarding": "9.1.0",
+    "@storybook/addon-vitest": "9.1.0",
+    "@storybook/nextjs-vite": "^9.1.0",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@vitest/browser": "^3.2.4",
+    "@vitest/coverage-v8": "^3.2.4",
     "eslint": "^9",
     "eslint-config-next": "15.4.5",
-    "@eslint/eslintrc": "^3"
-  }
+    "eslint-plugin-storybook": "9.1.0",
+    "playwright": "^1.54.2",
+    "storybook": "9.1.0",
+    "typed-css-modules": "^0.9.1",
+    "typescript": "^5",
+    "vitest": "^3.2.4"
+  },
+  "packageManager": "yarn@4.9.2"
 }

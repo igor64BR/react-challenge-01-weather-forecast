@@ -16,6 +16,13 @@
     "plugins": [
       {
         "name": "next"
+      },
+      {
+        "name": "typescript-plugin-css-modules",
+        "options": {
+          "customMatcher": "\\.module\\.(css|scss|sass)$",
+          "customMatcherRegex": "\\.module\\.(css|scss|sass)$"
+        }
       }
     ],
     "paths": {
