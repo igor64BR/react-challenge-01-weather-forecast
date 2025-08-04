@@ -1,0 +1,38 @@
+.body {
+  --padding-x: 5px;
+}
+
+.inputContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column-reverse;
+  height: 2.4rem;
+  padding-left: var(--padding-x);
+}
+
+.inputContainer input {
+  width: 13rem;
+  border: none;
+  border-radius: 1rem;
+  margin-bottom: 0.125rem;
+  height: 1.25rem;
+  padding-left: calc(var(--padding-x) * 2);
+}
+
+.inputContainer label {
+  position: absolute;
+  left: calc(var(--padding-x) * 3);
+  bottom: 0.25rem;
+  font-size: small;
+
+  transition: all 0.3s;
+
+  user-select: none;
+}
+
+.labelFinal {
+  transform: translateY(-1.2rem);
+  font-size: 0.85em;
+  color: #555;
+  color: rgb(197, 197, 197);
+}
