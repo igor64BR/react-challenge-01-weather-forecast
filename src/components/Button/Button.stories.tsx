@@ -15,11 +15,14 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     children: <>Hello World!</>,
+    width: "50%",
+    type: "button"
   },
 };
 
 export const LongText: Story = {
   args: {
+    ...Default.args,
     children: (
       <>
         Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ut, enim
@@ -27,5 +30,13 @@ export const LongText: Story = {
         quam expedita corrupti eos quidem nam a quos hic suscipit saepe harum!
       </>
     ),
+    width: "fit-content",
+  },
+};
+
+export const ShortButton: Story = {
+  args: {
+    ...Default.args,
+    width: "150px",
   },
 };

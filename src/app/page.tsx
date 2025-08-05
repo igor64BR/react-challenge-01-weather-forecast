@@ -4,7 +4,6 @@ import { FormEvent, useState } from "react";
 import styles from "./page.module.css";
 import TextInput from "@/components/Form/Inputs/TextInput";
 import Button from "@/components/Button/Button";
-import LofiGirlImg from "../../public/media/img/lofi-girl.jpg";
 import "./globals.css";
 
 type FormProps = {
@@ -50,7 +49,7 @@ export default function Login() {
               setFormValues({ ...formValues, password: value })
             }
           />
-          <Button onClick={() => {}}>Log In</Button>
+          <Button onClick={() => {}} width="70%" type="submit">Log In</Button>
         </form>
       </div>
     </div>

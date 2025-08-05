@@ -5,12 +5,25 @@ import "../../app/globals.css";
 type ButtonProps = {
   children: string | ReactNode;
   onClick: () => void;
+  width?: string;
+  height?: string;
+  type: "submit" | "reset" | "button";
 };
 
 export default function Button(props: ButtonProps) {
   return (
-    <button className={styles.button} onClick={() => props.onClick()}>
-      {props.children}
-    </button>
+    <div
+      className={styles.body}
+      style={{ width: props.width ?? "auto", height: props.height ?? "auto" }}
+    >
+      <button
+        className={styles.button}
+        onClick={() => props.onClick()}
+        type={props.type}
+      >
+        <div className={styles.reflex}></div>
+        {props.children}
+      </button>
+    </div>
   );
 }
