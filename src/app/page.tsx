@@ -32,11 +32,6 @@ export default function Login() {
 
   return (
     <div className={styles.body}>
-      <img
-        src={LofiGirlImg.src}
-        alt="lofi-girl"
-        className={styles.bgImg}
-      />
       <div className={styles.loginContainer}>
         <form onSubmit={onSubmit}>
           <TextInput
