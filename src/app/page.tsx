@@ -11,13 +11,17 @@ type FormProps = {
   password: string;
 };
 
-export default function Login() {
+type LoginProps = {
+  onSubmit?: (event?: FormEvent) => void;
+};
+
+export default function Login(props: LoginProps = {}) {
   const [formValues, setFormValues] = useState<FormProps>({
     userName: "",
     password: "",
   });
 
-  const onSubmit = (event?: FormEvent) => {
+  const onSubmit = props.onSubmit || ((event?: FormEvent) => {
     event?.preventDefault();
 
     if (formValues.userName === "" || formValues.password === "") {
@@ -27,7 +31,7 @@ export default function Login() {
     }
 
     window.location.href = "/home";
-  };
+  });
 
   return (
     <div className={styles.body}>
