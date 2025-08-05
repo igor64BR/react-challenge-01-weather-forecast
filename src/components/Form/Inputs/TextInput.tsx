@@ -2,6 +2,7 @@ import {
   ChangeEvent,
   HTMLInputTypeAttribute,
   ReactNode,
+  useEffect,
   useState,
 } from "react";
 import styles from "./style.module.css";
@@ -17,6 +18,8 @@ type TextInputProps = {
 export default function TextInput(props: TextInputProps) {
   const [value, setValue] = useState(props.value ?? "");
   const [labelClass, setLabelClass] = useState<string>("");
+
+  useEffect(() => updateLabelClass(), []);
 
   const onValueChange = (event: ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
