@@ -5,6 +5,7 @@ import styles from "./page.module.css";
 import TextInput from "@/components/Form/Inputs/TextInput";
 import Button from "@/components/Button/Button";
 import LofiGirlImg from "../../public/media/img/lofi-girl.jpg";
+import "./globals.css";
 
 type FormProps = {
   userName: string;
