@@ -1,6 +1,7 @@
 .body {
   position: relative;
   min-width: 130px;
+  text-align: center;
 }
 
 .button {
@@ -55,5 +56,9 @@
 
 
 .button:hover > .reflex {
+  width: 35%;
+}
+
+.button:active > .reflex {
   width: 55%;
 }
