@@ -12,11 +12,7 @@ type FormProps = {
   password: string;
 };
 
-type LoginProps = {
-  onSubmit?: (event?: FormEvent) => void;
-};
-
-export default function Login(props: LoginProps = {}) {
+export default function Login() {
   const [formValues, setFormValues] = useState<FormProps>({
     userName: "",
     password: "",
@@ -24,16 +20,14 @@ export default function Login(props: LoginProps = {}) {
 
   const [showHint, setShowHint] = useState(false);
 
-  const onSubmit =
-    props.onSubmit ||
-    ((event?: FormEvent) => {
-      event?.preventDefault();
+  const onSubmit = (event?: FormEvent) => {
+    event?.preventDefault();
 
-      if (formValues.userName === "" || formValues.password === "")
-        return setShowHint(true);
+    if (formValues.userName === "" || formValues.password === "")
+      return setShowHint(true);
 
-      window.location.href = "/home";
-    });
+    window.location.href = "/home";
+  };
 
   return (
     <div className={styles.body}>

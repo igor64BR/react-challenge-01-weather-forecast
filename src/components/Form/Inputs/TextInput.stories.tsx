@@ -1,10 +1,5 @@
 import { Meta, StoryObj } from "@storybook/nextjs-vite";
 import TextInput from "./TextInput";
-import {fn} from "@storybook/test";
-
-const ActionsData = {
-    onValueChange: fn()
-}
 
 const meta: Meta<typeof TextInput> = {
     component: TextInput,

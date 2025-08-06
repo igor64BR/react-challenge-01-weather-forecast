@@ -1,7 +1,5 @@
 import BaseHint, { BaseHintProps } from "../__BaseHint/BaseHint";
 
-interface HintInfoProps extends BaseHintProps {}
-
-export default function HintInfo(props: HintInfoProps) {
+export default function HintInfo(props: BaseHintProps) {
   return <BaseHint color="var(--background)" backgroundColor="var(--foreground)" {...props} />;
 }
