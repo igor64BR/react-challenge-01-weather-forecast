@@ -2,7 +2,7 @@
   height: 100vh;
   position: relative;
   padding: 0;
-  background: url('../../public/media/img/lofi-girl.jpg') center center;
+  background: url("../../public/media/img/lofi-girl.jpg") center center;
   background-size: cover;
 }
 
@@ -35,4 +35,21 @@
 
 .loginContainer form button {
   width: 80%;
+}
+
+@media screen and (max-width: 768px) {
+  .loginContainer {
+    width: 100%;
+    background: transparent;
+  }
+
+  .loginContainer form {
+    background-color: var(--background);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 3rem 2rem;
+    border-radius: 2rem;
+    box-shadow: 0 0 21px black;
+  }
 }

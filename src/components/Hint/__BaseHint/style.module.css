@@ -27,7 +27,7 @@
 }
 
 .body {
-  --hide-position: -50%;
+  --hide-position: -100%;
   --position: 1rem;
   --border-radius: 1rem;
 
@@ -46,4 +46,42 @@
   font-weight: bold;
   animation: var(--animation-duration) move ease-in-out,
     moveOut var(--animation-duration) var(--animation-duration) ease-in-out;
+}
+
+@media screen and (max-width: 768px) {
+  .body {
+    left: 50%;
+    transform: translateX(-50%);
+    height: fit-content;
+    width: 21rem;
+    text-align: center;
+  }
+
+  @keyframes move {
+  0% {
+    top: var(--hide-position);
+  }
+
+  10% {
+    top: var(--position);
+  }
+
+  100% {
+    top: var(--position);
+  }
+}
+
+@keyframes moveOut {
+  100% {
+    top: var(--hide-position);
+  }
+
+  10% {
+    top: var(--hide-position);
+  }
+
+  0% {
+    top: var(--position);
+  }
+}
 }
