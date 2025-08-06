@@ -13,6 +13,6 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
     args: {
-        text: "This is a base hint for show"
+        text: "This is a base hint for show",
     }
 }

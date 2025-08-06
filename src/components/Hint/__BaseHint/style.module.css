@@ -1,0 +1,49 @@
+@keyframes move {
+  0% {
+    left: -100%;
+  }
+
+  10% {
+    left: var(--position);
+  }
+
+  100% {
+    left: var(--position);
+  }
+}
+
+@keyframes moveOut {
+  100% {
+    left: -100%;
+  }
+
+  10% {
+    left: -100%;
+  }
+
+  0% {
+    left: var(--position);
+  }
+}
+
+.body {
+  --position: 3rem;
+  --border-radius: 1rem;
+  --animation-duration: 5s;
+
+  position: absolute;
+  left: -100%;
+  bottom: var(--position);
+
+  padding: 2rem;
+
+  border-radius: var(--border-radius);
+  box-shadow: 0 0 8px 2px black;
+
+  background: var(--foreground);
+  color: var(--background);
+  
+  font-weight: bold;
+  animation: var(--animation-duration) move ease-in-out,
+    moveOut var(--animation-duration) var(--animation-duration) ease-in-out;
+}

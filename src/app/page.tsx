@@ -5,6 +5,7 @@ import styles from "./page.module.css";
 import TextInput from "@/components/Form/Inputs/TextInput";
 import Button from "@/components/Button/Button";
 import "./globals.css";
+import HintError from "@/components/Hint/HintError/HintError";
 
 type FormProps = {
   userName: string;
@@ -21,17 +22,18 @@ export default function Login(props: LoginProps = {}) {
     password: "",
   });
 
-  const onSubmit = props.onSubmit || ((event?: FormEvent) => {
-    event?.preventDefault();
+  const [showHint, setShowHint] = useState(false);
 
-    if (formValues.userName === "" || formValues.password === "") {
-      window.alert("One or more fields are empty");
+  const onSubmit =
+    props.onSubmit ||
+    ((event?: FormEvent) => {
+      event?.preventDefault();
 
-      return;
-    }
+      if (formValues.userName === "" || formValues.password === "")
+        return setShowHint(true);
 
-    window.location.href = "/home";
-  });
+      window.location.href = "/home";
+    });
 
   return (
     <div className={styles.body}>
@@ -53,9 +55,12 @@ export default function Login(props: LoginProps = {}) {
               setFormValues({ ...formValues, password: value })
             }
           />
-          <Button onClick={() => {}} width="70%" type="submit">Log In</Button>
+          <Button onClick={() => {}} width="70%" type="submit">
+            Log In
+          </Button>
         </form>
       </div>
+      {showHint && <HintError text="Um ou mais campos estão vazios" />}
     </div>
   );
 }

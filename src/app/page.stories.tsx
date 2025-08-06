@@ -19,3 +19,10 @@ export const Default: Story = {
     },
   },
 };
+
+export const ShowHintOnEmptyLoginField: Story = {
+  args: {
+    ...Default.args,
+    onSubmit: undefined
+  }
+}
