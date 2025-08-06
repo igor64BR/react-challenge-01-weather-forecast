@@ -60,7 +60,12 @@ export default function Login(props: LoginProps = {}) {
           </Button>
         </form>
       </div>
-      {showHint && <HintError text="Um ou mais campos estão vazios" />}
+      {showHint && (
+        <HintError
+          text="Um ou mais campos estão vazios"
+          onDismiss={() => setShowHint(false)}
+        />
+      )}
     </div>
   );
 }

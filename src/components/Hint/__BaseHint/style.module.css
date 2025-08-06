@@ -1,6 +1,6 @@
 @keyframes move {
   0% {
-    left: -100%;
+    left: var(--hide-position);
   }
 
   10% {
@@ -14,11 +14,11 @@
 
 @keyframes moveOut {
   100% {
-    left: -100%;
+    left: var(--hide-position);
   }
 
   10% {
-    left: -100%;
+    left: var(--hide-position);
   }
 
   0% {
@@ -27,12 +27,12 @@
 }
 
 .body {
-  --position: 3rem;
+  --hide-position: -50%;
+  --position: 1rem;
   --border-radius: 1rem;
-  --animation-duration: 5s;
 
   position: absolute;
-  left: -100%;
+  left: var(--hide-position);
   bottom: var(--position);
 
   padding: 2rem;

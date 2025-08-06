@@ -4,7 +4,7 @@ import HintError from "./HintError";
 const meta = {
   component: HintError,
   title: "Components/Hint/HintError",
-  args: {},
+  args: { onDismiss: () => {} },
 } satisfies Meta<typeof HintError>;
 
 export default meta;
@@ -12,5 +12,5 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  args: {text: "This is a base hint for error"},
+  args: { text: "This is a base hint for error" },
 };
