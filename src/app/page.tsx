@@ -55,7 +55,7 @@ export default function Login(props: LoginProps = {}) {
               setFormValues({ ...formValues, password: value })
             }
           />
-          <Button onClick={() => {}} width="70%" type="submit">
+          <Button onClick={() => {}} width="80%" type="submit">
             Log In
           </Button>
         </form>
