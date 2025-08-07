@@ -3,6 +3,7 @@
 import LensIcon from "@/icon/LensIcon";
 import "../globals.css";
 import styles from "./page.module.css";
+import backgroundStyles from "./background.module.css";
 
 export default function HomePage() {
   const searchCity = () => {};
@@ -69,6 +70,8 @@ export default function HomePage() {
           </tbody>
         </table>
       </main>
+
+      <div className={backgroundStyles.background}></div>
     </div>
   );
 }
