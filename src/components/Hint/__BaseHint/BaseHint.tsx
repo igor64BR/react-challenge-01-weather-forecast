@@ -4,7 +4,7 @@ import "../../../app/globals.css";
 
 export interface BaseHintProps {
   text: string;
-  onDismiss: () => void;
+  onDismiss?: () => void;
 }
 
 const BaseHint: FunctionComponent<
@@ -13,7 +13,7 @@ const BaseHint: FunctionComponent<
   const animationDuration = 5; // seconds
 
   useEffect(() => {
-    setTimeout(() => props.onDismiss(), animationDuration * 1.1 * 1000);
+    setTimeout(() => props.onDismiss?.(), animationDuration * 1.1 * 1000);
   }, []);
 
   return (

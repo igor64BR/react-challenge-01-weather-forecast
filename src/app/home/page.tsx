@@ -4,9 +4,45 @@ import LensIcon from "@/icon/LensIcon";
 import "../globals.css";
 import styles from "./page.module.css";
 import backgroundStyles from "./background.module.css";
+import { useContext, useEffect, useState } from "react";
+import WeatherType from "@/Enums/WeatherType";
+import {
+  GeolocationContext,
+  GeolocationContextProvider,
+} from "@/services/Geolocation.service";
+import HintInfo from "@/components/Hint/HintInfo/HintInfo";
 
-export default function HomePage() {
-  const searchCity = () => {};
+interface CurrentDataProps {
+  city: string;
+  currentTemp: number;
+  type: WeatherType;
+  minTemp: number;
+  maxTemp: number;
+  thermicSensation: number;
+  windSpeed: number;
+  humidity: number;
+}
+
+function HomePageContent() {
+  const [searchValue, setSearchValue] = useState("");
+  const [showGeolocationNotAllowedHint, setShowGeolocationNotAllowedHint] =
+    useState(false);
+
+  const context = useContext(GeolocationContext);
+
+  const searchCity = () => {
+    console.log(searchValue);
+  };
+
+  useEffect(() => {
+    renderGeolocationNotAllowedHint();
+  }, [context]);
+
+  const renderGeolocationNotAllowedHint = () => {
+    if (!context.hasLoadedPermission) return;
+
+    setShowGeolocationNotAllowedHint(!context.canAccessGeolocation);
+  };
 
   return (
     <div className={styles.body}>
@@ -18,6 +54,8 @@ export default function HomePage() {
             id="search"
             name="search"
             placeholder="Search for your city"
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
           />
           <label htmlFor="search" id={styles.lensIconContainer}>
             <button onClick={() => searchCity()}>
@@ -71,7 +109,21 @@ export default function HomePage() {
         </table>
       </main>
 
+      {showGeolocationNotAllowedHint && (
+        <HintInfo
+          text="Please provide geolocation permission to retrieve weather data"
+          onDismiss={() => setShowGeolocationNotAllowedHint(false)}
+        />
+      )}
       <div className={backgroundStyles.background}></div>
     </div>
+  );
+}
+
+export default function HomePage() {
+  return (
+    <GeolocationContextProvider>
+      <HomePageContent />
+    </GeolocationContextProvider>
   );
 }
