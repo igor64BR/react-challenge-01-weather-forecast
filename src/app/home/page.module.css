@@ -76,30 +76,22 @@
 }
 
 .body table {
-  display: flex;
-  flex-direction: column;
+  display: grid;
   gap: 1rem;
 }
 
-.body thead {
+.body table thead tr {
   border-bottom: 2px solid var(--foreground);
-  padding-bottom: 1rem;
+  padding-bottom: 0.5rem;
 }
 
-.body tbody {
-  display: flex;
-  flex-direction: column;
+.body table tr {
+  display: grid;
   gap: 1rem;
-}
-
-.body tr {
-  display: flex;
-  justify-content: space-between;
-  gap: 15%;
+  grid-template-columns: 1fr 1fr 2fr;
   text-align: left;
 }
 
-.body tr > td:last-child,
-.body tr > th:last-child {
-  flex: 1;
+.body table tbody tr:not(:last-child) {
+  margin-bottom: 1rem;
 }
