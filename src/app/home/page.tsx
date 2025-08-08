@@ -13,6 +13,7 @@ import {
   WeatherForecastContext,
   WeatherForecastContextProvider,
 } from "@/services/WeatherForecast.service";
+import Loading from "@/components/Loading/Loading";
 
 interface CurrentDataProps {
   city: string;
@@ -93,24 +94,31 @@ function HomePageContent() {
       </header>
       <main>
         <h1>Capitals</h1>
-        <table>
-          <thead>
-            <tr>
-              <th>Min</th>
-              <th>Max</th>
-              <th>City</th>
-            </tr>
-          </thead>
-          <tbody>
-            {forecastData?.map((x, i) => (
-              <tr key={i}>
-                <td>{Math.round(x.min)}°C</td>
-                <td>{Math.round(x.max)}°C</td>
-                <td>{x.name}</td>
+        <div>
+          <table>
+            <thead>
+              <tr>
+                <th>Min</th>
+                <th>Max</th>
+                <th>City</th>
               </tr>
-            )) ?? null}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {forecastData?.map((x, i) => (
+                <tr key={i}>
+                  <td>{Math.round(x.min)}°C</td>
+                  <td>{Math.round(x.max)}°C</td>
+                  <td>{x.name}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          {forecastData?.length || (
+            <div className={styles.loadingContainer}>
+              <Loading />
+            </div>
+          )}
+        </div>
       </main>
 
       {showGeolocationNotAllowedHint && (

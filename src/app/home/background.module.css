@@ -5,7 +5,7 @@
   width: 100%;
   min-height: 100%;
   z-index: -1;
-  background: url("../../../public/media/img/loifi-girl-night.jpg");
+  background: url("../../../public/media/img/lofi-girl/loifi-girl-night.jpg");
   filter: blur(8px);
   background-size: cover;
 }

@@ -75,6 +75,14 @@
     padding: 10% 15%;
 }
 
+.body .loadingContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 10rem;
+  filter: drop-shadow(0 0 0.3rem rgba(0, 0, 0, 1));
+}
+
 .body table {
   display: grid;
   gap: 1rem;
