@@ -6,11 +6,13 @@ import styles from "./page.module.css";
 import backgroundStyles from "./background.module.css";
 import { useContext, useEffect, useState } from "react";
 import WeatherType from "@/Enums/WeatherType";
-import {
-  GeolocationContext,
-  GeolocationContextProvider,
-} from "@/services/Geolocation.service";
+import { GeolocationContext } from "@/services/Geolocation.service";
 import HintInfo from "@/components/Hint/HintInfo/HintInfo";
+import {
+  CityForecast,
+  WeatherForecastContext,
+  WeatherForecastContextProvider,
+} from "@/services/WeatherForecast.service";
 
 interface CurrentDataProps {
   city: string;
@@ -25,23 +27,48 @@ interface CurrentDataProps {
 
 function HomePageContent() {
   const [searchValue, setSearchValue] = useState("");
+  const [forecastData, setForecastData] = useState<CityForecast[]>();
   const [showGeolocationNotAllowedHint, setShowGeolocationNotAllowedHint] =
     useState(false);
 
-  const context = useContext(GeolocationContext);
+  const geoContext = useContext(GeolocationContext);
+  const weatherContext = useContext(WeatherForecastContext);
 
-  const searchCity = () => {
-    console.log(searchValue);
+  const searchCity = async () => {
+    const response = await weatherContext.requestWeatherForecast();
+
+    console.log(response);
   };
 
   useEffect(() => {
-    renderGeolocationNotAllowedHint();
-  }, [context]);
+    checkGeolocationPermission();
+  }, [geoContext]);
 
-  const renderGeolocationNotAllowedHint = () => {
-    if (!context.hasLoadedPermission) return;
+  useEffect(() => {
+    requestForecast();
+  }, [geoContext.cities]);
 
-    setShowGeolocationNotAllowedHint(!context.canAccessGeolocation);
+  const checkGeolocationPermission = () => {
+    if (!geoContext.permissions.hasLoadedPermission) return;
+
+    setShowGeolocationNotAllowedHint(
+      !geoContext.permissions.canAccessGeolocation
+    );
+  };
+
+  const requestForecast = async () => {
+    const { canAccessGeolocation, hasLoadedPermission } =
+      geoContext.permissions;
+
+    if (!hasLoadedPermission) return;
+
+    if (!canAccessGeolocation) return;
+
+    if (!geoContext.cities.length) return;
+
+    const forecastData = await weatherContext.requestWeatherForecast();
+
+    setForecastData(forecastData);
   };
 
   return (
@@ -75,36 +102,13 @@ function HomePageContent() {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>33C</td>
-              <td>33C</td>
-              <td>Rio de Janeiro</td>
-            </tr>
-            <tr>
-              <td>33C</td>
-              <td>33C</td>
-              <td>Rio de Janeiro</td>
-            </tr>
-            <tr>
-              <td>33C</td>
-              <td>33C</td>
-              <td>Rio de Janeiro</td>
-            </tr>
-            <tr>
-              <td>33C</td>
-              <td>33C</td>
-              <td>Rio de Janeiro</td>
-            </tr>
-            <tr>
-              <td>33C</td>
-              <td>33C</td>
-              <td>Rio de Janeiro</td>
-            </tr>
-            <tr>
-              <td>33C</td>
-              <td>33C</td>
-              <td>Rio de Janeiro</td>
-            </tr>
+            {forecastData?.map((x, i) => (
+              <tr key={i}>
+                <td>{Math.round(x.min)}°C</td>
+                <td>{Math.round(x.max)}°C</td>
+                <td>{x.name}</td>
+              </tr>
+            )) ?? null}
           </tbody>
         </table>
       </main>
@@ -122,8 +126,8 @@ function HomePageContent() {
 
 export default function HomePage() {
   return (
-    <GeolocationContextProvider>
+    <WeatherForecastContextProvider>
       <HomePageContent />
-    </GeolocationContextProvider>
+    </WeatherForecastContextProvider>
   );
 }
