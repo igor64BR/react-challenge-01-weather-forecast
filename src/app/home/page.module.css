@@ -1,0 +1,105 @@
+.body {
+  height: 100vh;
+}
+
+/* Header */
+.body header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+
+  padding: 2rem 0;
+  border-bottom: 2px solid white;
+}
+
+.body header h1 {
+  flex-wrap: wrap;
+}
+
+.searchBar {
+  display: flex;
+  gap: 1rem;
+  width: 80%;
+
+  background-color: var(--foreground);
+  color: var(--background);
+}
+
+#lensIconContainer button {
+  padding: 1rem;
+  aspect-ratio: 1;
+  height: 100%;
+  border: none;
+  border-left: 1px solid color-mix(in srgb, var(--background) 40%, transparent);
+  background-color: inherit;
+  color: inherit;
+
+  transition: 0.1s ease-in-out;
+  border-radius: 0 50% 50% 0;
+}
+
+#lensIconContainer:active button {
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+.searchBar, .searchBar input {
+    border-radius: 2rem;
+}
+
+.searchBar input {
+  flex: 1;
+  border: none;
+  background-color: inherit;
+  color: var(--background);
+  padding-left: 1rem;
+  font-size: medium;
+}
+
+.searchBar input:focus {
+    outline: none;
+}
+
+/* Main */
+.body main {
+  padding: 3rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Main Table */
+.body main {
+    padding: 10% 15%;
+}
+
+.body .loadingContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 10rem;
+  filter: drop-shadow(0 0 0.3rem rgba(0, 0, 0, 1));
+}
+
+.body table {
+  display: grid;
+  gap: 1rem;
+}
+
+.body table thead tr {
+  border-bottom: 2px solid var(--foreground);
+  padding-bottom: 0.5rem;
+}
+
+.body table tr {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr 1fr 2fr;
+  text-align: left;
+}
+
+.body table tbody tr:not(:last-child) {
+  margin-bottom: 1rem;
+}

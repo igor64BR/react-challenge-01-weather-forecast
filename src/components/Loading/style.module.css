@@ -1,0 +1,8 @@
+.body {
+    max-width: 100%;
+    width: fit-content;
+}
+
+.body img {
+    width: 3rem;
+}

@@ -1000,6 +1000,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@openmeteo/sdk@npm:^1.19.0":
+  version: 1.20.1
+  resolution: "@openmeteo/sdk@npm:1.20.1"
+  dependencies:
+    flatbuffers: "npm:^25.2.10"
+  checksum: 10c0/02fdd3c8cc872c09a30e0563a60e0ba4bf3fef1604b6004cf15f2c8918074a1c8a927dc130200d1cf55e2a920a999ae424bb5321e01380566e607e055a4072bd
+  languageName: node
+  linkType: hard
+
 "@pkgjs/parseargs@npm:^0.11.0":
   version: 0.11.0
   resolution: "@pkgjs/parseargs@npm:0.11.0"
@@ -3637,6 +3646,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"flatbuffers@npm:^25.2.10":
+  version: 25.2.10
+  resolution: "flatbuffers@npm:25.2.10"
+  checksum: 10c0/2ea1ab805d4ec35fb61e7d3b69c90886e4a35683cd0460da667c234400b2fa2e3e79992a73848cf18d5995c8e7d9eaef0e54f0d0aec5192b17b0014113cf90b9
+  languageName: node
+  linkType: hard
+
 "flatted@npm:^3.2.9":
   version: 3.3.3
   resolution: "flatted@npm:3.3.3"
@@ -5102,6 +5118,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"openmeteo@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "openmeteo@npm:1.2.0"
+  dependencies:
+    "@openmeteo/sdk": "npm:^1.19.0"
+    flatbuffers: "npm:^25.2.10"
+  checksum: 10c0/c62c00d8a5a53e90162bc0f779ad24314cd77e78add8a15f0783bef0b9a9acdcb2d3504a6c1d20ed3a242399a27c47bdce6ce51c80c20db57c12e5611bd6bd2c
+  languageName: node
+  linkType: hard
+
 "optionator@npm:^0.9.3":
   version: 0.9.4
   resolution: "optionator@npm:0.9.4"
@@ -5464,6 +5490,7 @@ __metadata:
     eslint-config-next: "npm:15.4.5"
     eslint-plugin-storybook: "npm:9.1.0"
     next: "npm:15.4.5"
+    openmeteo: "npm:^1.2.0"
     playwright: "npm:^1.54.2"
     react: "npm:19.1.0"
     react-dom: "npm:19.1.0"
