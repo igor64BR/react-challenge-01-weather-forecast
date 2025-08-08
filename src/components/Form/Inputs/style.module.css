@@ -17,6 +17,13 @@
   margin-bottom: 0.125rem;
   height: 1.25rem;
   padding-left: calc(var(--padding-x) * 2);
+
+  box-shadow: inset 0.1rem 0.1rem 0.5rem var(--dark-shadow), inset -0.1rem -0.1rem 0.5rem var(--light-shadow);
+  background-color: var(--background);
+}
+
+.inputContainer input:focus {
+  outline: none;
 }
 
 .inputContainer label {

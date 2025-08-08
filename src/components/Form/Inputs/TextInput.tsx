@@ -5,6 +5,7 @@ import {
   useState,
 } from "react";
 import styles from "./style.module.css";
+import '../../../app/globals.css';
 
 type TextInputProps = {
   label: string;
