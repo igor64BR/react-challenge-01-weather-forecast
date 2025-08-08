@@ -65,10 +65,10 @@ const WeatherForecastContextProviderProps = ({
       // Attributes for timezone and location
       const latitude = response.latitude();
       const longitude = response.longitude();
-      const elevation = response.elevation();
-      const timezone = response.timezone();
-      const timezoneAbbreviation = response.timezoneAbbreviation();
-      const utcOffsetSeconds = response.utcOffsetSeconds();
+      // const elevation = response.elevation();
+      // const timezone = response.timezone();
+      // const timezoneAbbreviation = response.timezoneAbbreviation();
+      // const utcOffsetSeconds = response.utcOffsetSeconds();
 
       // console.log(
       //   `\nCoordinates: ${latitude}°N ${longitude}°E`,
@@ -77,43 +77,43 @@ const WeatherForecastContextProviderProps = ({
       //   `\nTimezone difference to GMT+0: ${utcOffsetSeconds}s`
       // );
 
-      const current = response.current()!;
+      // const current = response.current()!;
       const daily = response.daily()!;
 
       // Note: The order of weather variables in the URL query and the indices below need to match!
-      const weatherData = {
-        current: {
-          time: new Date((Number(current.time()) + utcOffsetSeconds) * 1000),
-          temperature_2m: current.variables(0)!.value(),
-          apparent_temperature: current.variables(1)!.value(),
-          wind_speed_10m: current.variables(2)!.value(),
-          relative_humidity_2m: current.variables(3)!.value(),
-        },
-        daily: {
-          time: [
-            ...Array(
-              (Number(daily.timeEnd()) - Number(daily.time())) /
-                daily.interval()
-            ),
-          ].map(
-            (_, i) =>
-              new Date(
-                (Number(daily.time()) +
-                  i * daily.interval() +
-                  utcOffsetSeconds) *
-                  1000
-              )
-          ),
-          temperature_2m_max: daily.variables(0)!.valuesArray(),
-          temperature_2m_min: daily.variables(1)!.valuesArray(),
-        },
-      };
+      // const weatherData = {
+      //   current: {
+      //     time: new Date((Number(current.time()) + utcOffsetSeconds) * 1000),
+      //     temperature_2m: current.variables(0)!.value(),
+      //     apparent_temperature: current.variables(1)!.value(),
+      //     wind_speed_10m: current.variables(2)!.value(),
+      //     relative_humidity_2m: current.variables(3)!.value(),
+      //   },
+      //   daily: {
+      //     time: [
+      //       ...Array(
+      //         (Number(daily.timeEnd()) - Number(daily.time())) /
+      //           daily.interval()
+      //       ),
+      //     ].map(
+      //       (_, i) =>
+      //         new Date(
+      //           (Number(daily.time()) +
+      //             i * daily.interval() +
+      //             utcOffsetSeconds) *
+      //             1000
+      //         )
+      //     ),
+      //     temperature_2m_max: daily.variables(0)!.valuesArray(),
+      //     temperature_2m_min: daily.variables(1)!.valuesArray(),
+      //   },
+      // };
 
       outputData.push({
         latitude: latitude,
         longitude: longitude,
         min: daily.variables(1)!.valuesArray()![0],
-        max: daily.variables(0)?.valuesArray()![0]!,
+        max: daily.variables(0)!.valuesArray()![0]!,
         name: allCities[index].name,
       });
 

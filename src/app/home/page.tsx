@@ -5,7 +5,6 @@ import "../globals.css";
 import styles from "./page.module.css";
 import backgroundStyles from "./background.module.css";
 import { useContext, useEffect, useState } from "react";
-import WeatherType from "@/Enums/WeatherType";
 import { GeolocationContext } from "@/services/Geolocation.service";
 import HintInfo from "@/components/Hint/HintInfo/HintInfo";
 import {
@@ -14,17 +13,6 @@ import {
   WeatherForecastContextProvider,
 } from "@/services/WeatherForecast.service";
 import Loading from "@/components/Loading/Loading";
-
-interface CurrentDataProps {
-  city: string;
-  currentTemp: number;
-  type: WeatherType;
-  minTemp: number;
-  maxTemp: number;
-  thermicSensation: number;
-  windSpeed: number;
-  humidity: number;
-}
 
 function HomePageContent() {
   const [searchValue, setSearchValue] = useState("");
@@ -115,7 +103,7 @@ function HomePageContent() {
           </table>
           {forecastData?.length || (
             <div className={styles.loadingContainer}>
-              <Loading />
+              <Loading size={2} />
             </div>
           )}
         </div>
