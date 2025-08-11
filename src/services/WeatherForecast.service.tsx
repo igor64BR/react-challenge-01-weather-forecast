@@ -33,17 +33,9 @@ const WeatherForecastContextProviderProps = ({
     if (!position || !cities.length)
       throw new Error("Failed to retrieve cities for forecast");
 
-    const allCities: Capital[] = [
-      {
-        name: "Current",
-        ...position,
-      },
-      ...cities,
-    ];
-
     const params = {
-      latitude: allCities.map((x) => x.latitude),
-      longitude: allCities.map((x) => x.longitude),
+      latitude: cities.map((x) => x.latitude),
+      longitude: cities.map((x) => x.longitude),
       daily: ["temperature_2m_max", "temperature_2m_min"],
       current: [
         "temperature_2m",
@@ -114,7 +106,7 @@ const WeatherForecastContextProviderProps = ({
         longitude: longitude,
         min: daily.variables(1)!.valuesArray()![0],
         max: daily.variables(0)!.valuesArray()![0]!,
-        name: allCities[index].name,
+        name: cities[index].name,
       });
 
       // 'weatherData' now contains a simple structure with arrays with datetime and weather data

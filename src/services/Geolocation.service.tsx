@@ -85,10 +85,31 @@ export const GeolocationContextProvider = ({
       return;
     }
 
+    const currentLocation = await retrieveCurrentLocationInfo();
+
     const capitalsOrderedByDistance = await getCapitalsByClosests(position!);
 
-    setCities(capitalsOrderedByDistance);
+    setCities([
+      currentLocation,
+      ...capitalsOrderedByDistance,
+    ]);
   };
+
+  const retrieveCurrentLocationInfo = async (): Promise<Capital> => {
+    const { latitude, longitude } = position!;
+
+    const data = await fetch(
+      `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`
+    ).then((x) => x.json());
+
+    const currentCityName = data.address.city || data.address.town || data.address.village;
+
+    return {
+      latitude,
+      longitude,
+      name: currentCityName
+    }
+  }
 
   return (
     <GeolocationContext.Provider
