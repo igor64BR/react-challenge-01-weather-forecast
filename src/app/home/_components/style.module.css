@@ -78,3 +78,12 @@
   border-top: 1px solid var(--background);
   padding-top: 1rem;
 }
+
+@media screen and (min-width: 768px) {
+  .body {
+    width: 43rem;
+    border-radius: 1.3rem;
+
+    box-shadow: 0 0 1rem black;
+  }
+}

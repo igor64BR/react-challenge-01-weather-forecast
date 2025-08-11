@@ -85,7 +85,7 @@ function HomePageContent() {
         </div>
       </header>
       <main>
-        <h1>Capitals</h1>
+        <h1>Main Cities</h1>
         <div>
           <table>
             <thead>
@@ -105,7 +105,7 @@ function HomePageContent() {
               ))}
             </tbody>
           </table>
-          {forecastData?.length || (
+          {!!forecastData?.length || (
             <div className={styles.loadingContainer}>
               <Loading size={2} />
             </div>

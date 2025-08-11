@@ -1,5 +1,15 @@
 .body {
   height: 100vh;
+  display: flex;
+
+  flex-direction: column;
+  align-items: center;
+}
+
+.body main,
+.body header {
+  width: 100%;
+  max-width: 768px;
 }
 
 /* Header */
@@ -45,8 +55,9 @@
   color: var(--foreground);
 }
 
-.searchBar, .searchBar input {
-    border-radius: 2rem;
+.searchBar,
+.searchBar input {
+  border-radius: 2rem;
 }
 
 .searchBar input {
@@ -59,7 +70,7 @@
 }
 
 .searchBar input:focus {
-    outline: none;
+  outline: none;
 }
 
 /* Main */
@@ -72,7 +83,9 @@
 
 /* Main Table */
 .body main {
-    padding: 10% 15%;
+  padding: 2rem 3rem;
+  display: flex;
+  justify-content: center;
 }
 
 .body .loadingContainer {
@@ -84,13 +97,20 @@
 }
 
 .body table {
-  display: grid;
-  gap: 1rem;
+  min-width: 18rem;
+  width: 80%;
+  margin: auto;
 }
 
 .body table thead tr {
   border-bottom: 2px solid var(--foreground);
   padding-bottom: 0.5rem;
+}
+
+.body table tbody {
+  display: block;
+  height: 50vh;
+  overflow-y: auto;
 }
 
 .body table tr {
