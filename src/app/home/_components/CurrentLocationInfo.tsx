@@ -56,8 +56,8 @@ const CurrentLocationInfo: FunctionComponent<CurrentLocationInfoProps> = ({
           </div>
         </section>
         <section className={styles.footer}>
-          {city.dailyForecast.map((df) => (
-            <div className={styles.dailyForecast}>
+          {city.dailyForecast.map((df, i) => (
+            <div key={i} className={styles.dailyForecast}>
               <h3>{df.dayName}</h3>
               <span className={styles.minMaxTemp}>
                 <span>{Math.round(df.min)}°</span>
