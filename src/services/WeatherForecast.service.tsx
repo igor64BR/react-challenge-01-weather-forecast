@@ -1,4 +1,4 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useState } from "react";
 import {
   GeolocationContext,
   GeolocationContextProvider,
@@ -7,8 +7,21 @@ import { fetchWeatherApi } from "openmeteo";
 import { Capital } from "@/utils/constants/capitals";
 
 export type CityForecast = Capital & {
+  state: string;
+  country: string;
+  temperature: number;
   min: number;
   max: number;
+  apparentTemperature: number;
+  windSpeed: number;
+  humidity: number;
+  dailyForecast: dailyForecast[];
+};
+
+type dailyForecast = {
+  min: number;
+  max: number;
+  dayName: string;
 };
 
 type WeatherForecastContextProviderProps = {
@@ -17,6 +30,7 @@ type WeatherForecastContextProviderProps = {
 
 type WeatherForecastContextType = {
   requestWeatherForecast: () => Promise<CityForecast[]>;
+  cachedData?: CityForecast[];
 };
 
 export const WeatherForecastContext = createContext(
@@ -27,6 +41,8 @@ const WeatherForecastContextProviderProps = ({
   children,
 }: WeatherForecastContextProviderProps) => {
   const geolocationContext = useContext(GeolocationContext);
+
+  const [cachedData, setCachedData] = useState<CityForecast[]>();
 
   const requestWeatherForecast = async (): Promise<CityForecast[]> => {
     const { position, cities } = geolocationContext;
@@ -69,7 +85,7 @@ const WeatherForecastContextProviderProps = ({
       //   `\nTimezone difference to GMT+0: ${utcOffsetSeconds}s`
       // );
 
-      // const current = response.current()!;
+      const current = response.current()!;
       const daily = response.daily()!;
 
       // Note: The order of weather variables in the URL query and the indices below need to match!
@@ -107,6 +123,34 @@ const WeatherForecastContextProviderProps = ({
         min: daily.variables(1)!.valuesArray()![0],
         max: daily.variables(0)!.valuesArray()![0]!,
         name: cities[index].name,
+        apparentTemperature: current.variables(1)!.value(),
+        country: cities[index].country,
+        temperature: current.variables(0)!.value(),
+        dailyForecast: [
+          {
+            dayName: "Terça",
+            max: 26,
+            min: 18,
+          },
+          {
+            dayName: "Terça",
+            max: 26,
+            min: 18,
+          },
+          {
+            dayName: "Terça",
+            max: 26,
+            min: 18,
+          },
+          {
+            dayName: "Terça",
+            max: 26,
+            min: 18,
+          },
+        ],
+        humidity: current.variables(3)!.value(),
+        state: cities[index].state,
+        windSpeed: current.variables(2)!.value(),
       });
 
       // 'weatherData' now contains a simple structure with arrays with datetime and weather data
@@ -129,11 +173,15 @@ const WeatherForecastContextProviderProps = ({
       // );
     }
 
+    setCachedData(outputData);
+
     return outputData;
   };
 
   return (
-    <WeatherForecastContext.Provider value={{ requestWeatherForecast }}>
+    <WeatherForecastContext.Provider
+      value={{ requestWeatherForecast, cachedData }}
+    >
       {children}
     </WeatherForecastContext.Provider>
   );

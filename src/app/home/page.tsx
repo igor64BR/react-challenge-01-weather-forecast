@@ -13,6 +13,7 @@ import {
   WeatherForecastContextProvider,
 } from "@/services/WeatherForecast.service";
 import Loading from "@/components/Loading/Loading";
+import CurrentLocationInfo from "./_components/CurrentLocationInfo";
 
 function HomePageContent() {
   const [searchValue, setSearchValue] = useState("");
@@ -64,6 +65,9 @@ function HomePageContent() {
     <div className={styles.body}>
       <header>
         <h1>Weather Forecast</h1>
+        {weatherContext.cachedData?.length && (
+          <CurrentLocationInfo city={weatherContext.cachedData[0]} />
+        )}
         <div className={styles.searchBar}>
           <input
             type="text"

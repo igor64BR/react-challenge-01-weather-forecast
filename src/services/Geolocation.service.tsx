@@ -103,11 +103,15 @@ export const GeolocationContextProvider = ({
     ).then((x) => x.json());
 
     const currentCityName = data.address.city || data.address.town || data.address.village;
+    const country = data.address.country;
+    const state = data.address.state;
 
     return {
       latitude,
       longitude,
-      name: currentCityName
+      name: currentCityName,
+      country,
+      state,
     }
   }
 
