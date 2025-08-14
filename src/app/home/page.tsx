@@ -119,7 +119,8 @@ function HomePageContent() {
           onDismiss={() => setShowGeolocationNotAllowedHint(false)}
         />
       )}
-      <div className={backgroundStyles.background}></div>
+      <div className={`${backgroundStyles.background} ${backgroundStyles.bg}`}></div>
+      <div className={`${backgroundStyles.backgroundFilter} ${backgroundStyles.bg}`}></div>
     </div>
   );
 }
