@@ -5,6 +5,7 @@ import {
 } from "./Geolocation.service";
 import { fetchWeatherApi } from "openmeteo";
 import { Capital } from "@/utils/constants/capitals";
+import { WeekdayContext, WeekdayContextProvider } from "./Weekday.service";
 
 export type CityForecast = Capital & {
   state: string;
@@ -41,6 +42,7 @@ const WeatherForecastContextProviderProps = ({
   children,
 }: WeatherForecastContextProviderProps) => {
   const geolocationContext = useContext(GeolocationContext);
+  const weekdayContext = useContext(WeekdayContext);
 
   const [cachedData, setCachedData] = useState<CityForecast[]>();
 
@@ -67,6 +69,10 @@ const WeatherForecastContextProviderProps = ({
 
     const outputData: CityForecast[] = [];
 
+    const forecastDays = 4;
+
+    const days = weekdayContext.getDaysFromToday(forecastDays);
+
     for (const response of responses) {
       const index = responses.indexOf(response);
 
@@ -81,12 +87,12 @@ const WeatherForecastContextProviderProps = ({
 
       const dailyForecast: dailyForecast[] = [];
 
-      for (let i = 0; i < 4; i++) {
+      for (let i = 0; i < forecastDays; i++) {
         const max = maxTemps[i + 1];
         const min = minTemps[i + 1];
 
         dailyForecast.push({
-          dayName: "Teste " + (i + 1),
+          dayName: days[i],
           max,
           min,
         });
@@ -127,9 +133,11 @@ export const WeatherForecastContextProvider = ({
 }: WeatherForecastContextProviderProps) => {
   return (
     <GeolocationContextProvider>
-      <WeatherForecastContextProviderProps>
-        {children}
-      </WeatherForecastContextProviderProps>
+      <WeekdayContextProvider>
+        <WeatherForecastContextProviderProps>
+          {children}
+        </WeatherForecastContextProviderProps>
+      </WeekdayContextProvider>
     </GeolocationContextProvider>
   );
 };
