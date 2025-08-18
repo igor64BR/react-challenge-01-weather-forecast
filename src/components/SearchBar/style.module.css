@@ -1,7 +1,14 @@
+.body {
+  position: relative;
+
+  --search-bar-height: 3rem;
+}
+
 .searchBar {
   display: flex;
   gap: 1rem;
-  width: 80%;
+  width: 100%;
+  height: var(--search-bar-height);
 
   background-color: var(--foreground);
   color: var(--background);
@@ -41,4 +48,28 @@
 #lensIconContainer:active button {
   background-color: var(--background);
   color: var(--foreground);
+}
+
+.optionsContainer {
+  --gap: 0.1rem;
+  
+  position: absolute;
+  top: calc(var(--search-bar-height) + var(--gap));
+  left: 1rem;
+  
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+  
+  margin-top: var(--gap);
+  width: 80%;
+
+  box-shadow: 0 0.2rem 0.5rem black;
+}
+
+@media screen and (min-width: 480px) {
+  .optionsContainer {
+    width: fit-content;
+    max-width: 34rem;
+  }
 }
