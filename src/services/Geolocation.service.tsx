@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import capitals, {
-  Capital,
+  City,
   getCapitalsByClosests,
 } from "@/utils/constants/capitals";
 
@@ -11,7 +11,7 @@ type GeolocationContextProviderProps = {
 type GeolocationContextType = {
   permissions: GeolocationPermissions;
   position?: GeolocationPosition;
-  cities: Capital[];
+  cities: City[];
 };
 
 type GeolocationPermissions = {
@@ -36,7 +36,7 @@ export const GeolocationContextProvider = ({
 
   const [permissions, setPermissions] = useState(defaultPermissions);
   const [position, setPosition] = useState<GeolocationPosition | undefined>();
-  const [cities, setCities] = useState<Capital[]>([]);
+  const [cities, setCities] = useState<City[]>([]);
 
   useEffect(() => {
     requestGeolocation();
@@ -95,7 +95,7 @@ export const GeolocationContextProvider = ({
     ]);
   };
 
-  const retrieveCurrentLocationInfo = async (): Promise<Capital> => {
+  const retrieveCurrentLocationInfo = async (): Promise<City> => {
     const { latitude, longitude } = position!;
 
     const data = await fetch(

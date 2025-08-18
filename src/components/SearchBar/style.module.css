@@ -1,0 +1,44 @@
+.searchBar {
+  display: flex;
+  gap: 1rem;
+  width: 80%;
+
+  background-color: var(--foreground);
+  color: var(--background);
+}
+
+.searchBar,
+.searchBar input {
+  border-radius: 2rem;
+}
+
+.searchBar input {
+  flex: 1;
+  border: none;
+  background-color: inherit;
+  color: var(--background);
+  padding-left: 1rem;
+  font-size: medium;
+}
+
+.searchBar input:focus {
+  outline: none;
+}
+
+#lensIconContainer button {
+  padding: 1rem;
+  aspect-ratio: 1;
+  height: 100%;
+  border: none;
+  border-left: 1px solid color-mix(in srgb, var(--background) 40%, transparent);
+  background-color: inherit;
+  color: inherit;
+
+  transition: 0.1s ease-in-out;
+  border-radius: 0 50% 50% 0;
+}
+
+#lensIconContainer:active button {
+  background-color: var(--background);
+  color: var(--foreground);
+}

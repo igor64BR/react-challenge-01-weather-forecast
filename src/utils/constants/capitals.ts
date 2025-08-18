@@ -1,12 +1,15 @@
-export type Capital = {
+export type City = Coordinates & {
   name: string;
   state: string;
   country: string;
+};
+
+export type Coordinates = {
   latitude: number;
   longitude: number;
 };
 
-const capitals: Capital[] = [
+const capitals: City[] = [
   {
     name: "Rio de Janeiro",
     state: "Rio de Janeiro",
@@ -203,8 +206,8 @@ export default capitals;
 export const getCapitalsByClosests = (coords: {
   latitude: number;
   longitude: number;
-}): Promise<Capital[]> => {
-  const capitalsWithDistance: Promise<Capital & { distance: number }>[] = [];
+}): Promise<City[]> => {
+  const capitalsWithDistance: Promise<City & { distance: number }>[] = [];
 
   for (const capital of capitals) {
     capitalsWithDistance.push(
@@ -220,6 +223,6 @@ export const getCapitalsByClosests = (coords: {
   return Promise.all(capitalsWithDistance).then((results) => {
     return results
       .sort((a, b) => a.distance - b.distance)
-      .map((capital) => capital as Capital);
+      .map((capital) => capital as City);
   });
 };

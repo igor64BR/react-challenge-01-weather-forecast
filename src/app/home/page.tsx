@@ -1,6 +1,5 @@
 "use client";
 
-import LensIcon from "@/icon/LensIcon";
 import "../globals.css";
 import styles from "./page.module.css";
 import backgroundStyles from "./background.module.css";
@@ -13,22 +12,18 @@ import {
   WeatherForecastContextProvider,
 } from "@/services/WeatherForecast.service";
 import Loading from "@/components/Loading/Loading";
-import CurrentLocationInfo from "./_components/CurrentLocationInfo";
+import CurrentLocationInfo from "./_components/CurrentLocationInfo/CurrentLocationInfo";
+import SearchBar from "@/components/SearchBar/SearchBar";
 
 function HomePageContent() {
   const [searchValue, setSearchValue] = useState("");
   const [forecastData, setForecastData] = useState<CityForecast[]>();
+  const [focusedCity, setFocusedCity] = useState<CityForecast>();
   const [showGeolocationNotAllowedHint, setShowGeolocationNotAllowedHint] =
     useState(false);
 
   const geoContext = useContext(GeolocationContext);
   const weatherContext = useContext(WeatherForecastContext);
-
-  const searchCity = async () => {
-    const response = await weatherContext.requestWeatherForecast();
-
-    console.log(response);
-  };
 
   useEffect(() => {
     checkGeolocationPermission();
@@ -37,6 +32,16 @@ function HomePageContent() {
   useEffect(() => {
     requestForecast();
   }, [geoContext.cities]);
+
+  useEffect(() => {
+    initFocusedData();
+  }, [weatherContext]);
+
+  const initFocusedData = () => {
+    if (!weatherContext.cachedData?.length) return;
+
+    setFocusedCity(weatherContext.cachedData[0]);
+  };
 
   const checkGeolocationPermission = () => {
     if (!geoContext.permissions.hasLoadedPermission) return;
@@ -56,33 +61,27 @@ function HomePageContent() {
 
     if (!geoContext.cities.length) return;
 
-    const forecastData = await weatherContext.requestWeatherForecast();
+    const forecastData = await weatherContext.requestMainCitiesForecast();
 
     setForecastData(forecastData);
+  };
+
+  const searchCity = async () => {
+    const response = await weatherContext.requestMainCitiesForecast();
+
+    console.log(response);
   };
 
   return (
     <div className={styles.body}>
       <header>
         <h1>Weather Forecast</h1>
-        {weatherContext.cachedData?.length && (
-          <CurrentLocationInfo city={weatherContext.cachedData[0]} />
-        )}
-        <div className={styles.searchBar}>
-          <input
-            type="text"
-            id="search"
-            name="search"
-            placeholder="Search for your city"
-            value={searchValue}
-            onChange={(e) => setSearchValue(e.target.value)}
-          />
-          <label htmlFor="search" id={styles.lensIconContainer}>
-            <button onClick={() => searchCity()}>
-              <LensIcon />
-            </button>
-          </label>
-        </div>
+        {focusedCity && <CurrentLocationInfo city={focusedCity} />}
+        <SearchBar
+          value={searchValue}
+          setValue={setSearchValue}
+          onSearch={searchCity}
+        />
       </header>
       <main>
         <h1>Main Cities</h1>
@@ -119,8 +118,12 @@ function HomePageContent() {
           onDismiss={() => setShowGeolocationNotAllowedHint(false)}
         />
       )}
-      <div className={`${backgroundStyles.background} ${backgroundStyles.bg}`}></div>
-      <div className={`${backgroundStyles.backgroundFilter} ${backgroundStyles.bg}`}></div>
+      <div
+        className={`${backgroundStyles.background} ${backgroundStyles.bg}`}
+      ></div>
+      <div
+        className={`${backgroundStyles.backgroundFilter} ${backgroundStyles.bg}`}
+      ></div>
     </div>
   );
 }
