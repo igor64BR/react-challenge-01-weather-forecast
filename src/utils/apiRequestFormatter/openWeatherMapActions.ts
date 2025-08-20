@@ -1,6 +1,6 @@
 const initOpenWeatherMapActions = () => {
   const apiKey = process.env.NEXT_PUBLIC_GEOCODING_API_KEY;
-  const baseUrl = "http://api.openweathermap.org/geo/1.0";
+  const baseUrl = "https://api.openweathermap.org/geo/1.0";
 
   return {
     requestCurrentLocation: async (lat: number, lon: number) => {
