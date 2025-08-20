@@ -5,6 +5,7 @@ const meta = {
   component: CurrentLocationInfo,
   title: "Pages/HomePage/Components/CurrentLocationInfo",
   args: {
+    onClose: () => {},
     city: {
       latitude: -45.899,
       longitude: -33.912,
