@@ -1,36 +1,81 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+# Weather Forecast App
 
-First, run the development server:
+> A modern weather forecast web app built as a front-end challenge. Powered by Next.js, React, and TypeScript. Get real-time weather for major cities and search for any location using OpenMeteo and OpenWeatherMap APIs.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🌤️ Overview
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+This project is a solution to the [1STi front-end challenge](https://github.com/1STi/desafio-frontend/): create a beautiful, responsive weather forecast app that consumes public weather APIs. The main experience is available on the **Home page** (`/home`).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+**Features:**
+- View weather forecasts for main cities
+- Search for any city and get instant weather info
+- Uses browser geolocation (with permission) to show your local weather
+- Clean, modern UI with loading and error states
 
-## Learn More
+**All UI components were hand-crafted from scratch, without using any component libraries or CSS frameworks. This approach was chosen to deepen my CSS skills, focusing on modern CSS techniques such as Flexbox, Grid, custom properties, responsive layouts, and accessibility best practices. Through this project, I gained practical experience in building scalable and maintainable CSS for real-world applications.**
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📸 Demo
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Desktop
+![desktop preview](./public/media/img/readme/desktop-preview.png)
 
-## Deploy on Vercel
+## Phone
+![phone preview](./public/media/img/readme/phone-preview.png)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🚀 Getting Started
+
+1. **Install dependencies:**
+    ```bash
+    yarn install
+    # or
+    npm install
+    ```
+2. **Run the development server:**
+    ```bash
+    yarn dev
+    # or
+    npm run dev
+    ```
+3. Open [http://localhost:3000/home](http://localhost:3000/home) in your browser.
+
+You need to create your own API key to consume OpenWeather api and add it to a `.env` file at project root folder named `NEXT_PUBLIC_GEOCODING_API_KEY`.
+
+You can create your own API keys [here](https://home.openweathermap.org/api_keys).
+
+---
+
+## 🕹️ Usage
+
+- **Main Cities:** Instantly see the weather for a list of major cities.
+- **Search:** Type at least 3 letters to search for any city worldwide.
+- **Geolocation:** Allow browser geolocation to get your local weather.
+- **Responsive:** Works great on desktop and mobile.
+
+---
+
+## 🛠️ Tech Stack
+
+- [Next.js](https://nextjs.org/) (App Router)
+- [React](https://react.dev/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [OpenMeteo API](https://open-meteo.com/)
+- [OpenWeatherMap API](https://openweathermap.org/)
+
+---
+
+## 🙏 Acknowledgments
+
+- Challenge by [1STi](https://github.com/1STi)
+- Weather data from [OpenMeteo](https://open-meteo.com/) and [OpenWeatherMap](https://openweathermap.org/)
+
+---
+
+_Feel free to fork, contribute, or reach out with feedback!_
+
