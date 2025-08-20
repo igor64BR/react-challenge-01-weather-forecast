@@ -5,6 +5,7 @@ declare const styles: {
   readonly "dailyForecast": string;
   readonly "footer": string;
   readonly "header": string;
+  readonly "infoContainer": string;
   readonly "loadingContainer": string;
   readonly "mainInfo": string;
   readonly "minMaxTemp": string;

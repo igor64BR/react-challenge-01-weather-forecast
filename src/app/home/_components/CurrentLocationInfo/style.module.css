@@ -28,11 +28,11 @@
 .closeButton {
   outline: none;
   border: none;
-  
+
   display: flex;
   justify-content: center;
   align-items: center;
-  
+
   background-color: inherit;
   color: var(--background);
 
@@ -46,10 +46,15 @@
   gap: 1rem;
 }
 
+.infoContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: 3rem;
+}
+
 /* Main weather info (e.g., temperature, city) */
 .mainInfo {
-  display: flex;
-  justify-content: space-between;
   font-size: 1.5rem;
 }
 
@@ -105,5 +110,9 @@
     border-radius: 1.3rem;
 
     box-shadow: 0 0 1rem black;
+  }
+
+  .otherInfoContainer {
+    flex: 1;
   }
 }

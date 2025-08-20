@@ -37,35 +37,35 @@ const CurrentLocationInfo: FunctionComponent<CurrentLocationInfoProps> = ({
         </button>
       </div>
       <div className={styles.content}>
-        <section className={styles.mainInfo}>
-          <h1>{Math.round(city.temperature)}°C</h1>
-          {/* TODO: Deixar dinamico */}
-          <h1>Nublado</h1>
-        </section>
-        <section className={styles.otherInfoContainer}>
-          <div className={styles.minMaxTemp}>
-            <div>
-              <ArrowDown />
-              <span>{Math.round(city.min)}°C</span>
+        <div className={styles.infoContainer}>
+          <section className={styles.mainInfo}>
+            <h1>{Math.round(city.temperature)}°C</h1>
+          </section>
+          <section className={styles.otherInfoContainer}>
+            <div className={styles.minMaxTemp}>
+              <div>
+                <ArrowDown />
+                <span>{Math.round(city.min)}°C</span>
+              </div>
+              <div>
+                <ArrowUp />
+                <span>{Math.round(city.max)}°C</span>
+              </div>
             </div>
-            <div>
-              <ArrowUp />
-              <span>{Math.round(city.max)}°C</span>
+            <div className={styles.otherInfo}>
+              <span>Feels Like:</span>
+              <span>{Math.round(city.apparentTemperature)}°C</span>
             </div>
-          </div>
-          <div className={styles.otherInfo}>
-            <span>Feels Like:</span>
-            <span>{Math.round(city.apparentTemperature)}°C</span>
-          </div>
-          <div className={styles.otherInfo}>
-            <span>Wind:</span>
-            <span>{Math.round(city.windSpeed)}km/h</span>
-          </div>
-          <div className={styles.otherInfo}>
-            <span>Humidity:</span>
-            <span>{city.humidity}%</span>
-          </div>
-        </section>
+            <div className={styles.otherInfo}>
+              <span>Wind:</span>
+              <span>{Math.round(city.windSpeed)}km/h</span>
+            </div>
+            <div className={styles.otherInfo}>
+              <span>Humidity:</span>
+              <span>{city.humidity}%</span>
+            </div>
+          </section>
+        </div>
         <section className={styles.footer}>
           {city.dailyForecast.map((df, i) => (
             <div key={i} className={styles.dailyForecast}>
