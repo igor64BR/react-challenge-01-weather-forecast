@@ -46,14 +46,10 @@ function HomePageContent() {
     initFocusedData();
   }, [weatherContext]);
 
-  useEffect(() => {
-    searchCities();
-  }, [searchValue]);
+  const searchCities = async (value: string) => {
+    if (value.length < 3) return;
 
-  const searchCities = async () => {
-    if (searchValue.length < 3) return;
-
-    const result = await locationContext.searchLocation(searchValue);
+    const result = await locationContext.searchLocation(value);
 
     setSearchOptions(
       result.map((x, i) => ({
@@ -82,11 +78,13 @@ function HomePageContent() {
     const { canAccessGeolocation, hasLoadedPermission } =
       geoContext.permissions;
 
-    if (!hasLoadedPermission) return;
+    const permissions = [
+      hasLoadedPermission,
+      canAccessGeolocation,
+      geoContext.cities.length,
+    ];
 
-    if (!canAccessGeolocation) return;
-
-    if (!geoContext.cities.length) return;
+    if (permissions.some((x) => !x)) return;
 
     const forecastData = await weatherContext.requestMainCitiesForecast();
 
@@ -107,7 +105,10 @@ function HomePageContent() {
         {focusedCity && <CurrentLocationInfo city={focusedCity} />}
         <SearchBar
           value={searchValue}
-          setValue={setSearchValue}
+          setValue={(value) => {
+            setSearchValue(value);
+            searchCities(value);
+          }}
           options={searchOptions}
         />
       </header>
