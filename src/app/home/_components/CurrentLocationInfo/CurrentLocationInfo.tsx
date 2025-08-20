@@ -5,14 +5,25 @@ import { CityForecast } from "@/services/WeatherForecast.service";
 import CloseIcon from "@/icon/CloseIcon";
 import ArrowUp from "@/icon/ArrowUp";
 import ArrowDown from "@/icon/ArrowDown";
+import Loading from "@/components/Loading/Loading";
 
 interface CurrentLocationInfoProps {
-  city: CityForecast;
+  city?: CityForecast;
+  onClose: () => void;
 }
 
 const CurrentLocationInfo: FunctionComponent<CurrentLocationInfoProps> = ({
   city,
+  onClose,
 }) => {
+  if (!city) {
+    return (
+      <div className={styles.loadingContainer}>
+        <Loading />
+      </div>
+    );
+  }
+
   return (
     <div className={styles.body}>
       <div className={styles.header}>
@@ -21,9 +32,9 @@ const CurrentLocationInfo: FunctionComponent<CurrentLocationInfoProps> = ({
           <span>{city.state} -&nbsp;</span>
           <span>{city.country}</span>
         </span>
-        <div>
+        <button className={styles.closeButton} onClick={() => onClose()}>
           <CloseIcon />
-        </div>
+        </button>
       </div>
       <div className={styles.content}>
         <section className={styles.mainInfo}>

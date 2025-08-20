@@ -27,6 +27,7 @@ function HomePageContent() {
 
   const [forecastData, setForecastData] = useState<CityForecast[]>();
   const [focusedCity, setFocusedCity] = useState<CityForecast>();
+  const [showFocusedCity, setShowFocusedCity] = useState(true);
   const [showGeolocationNotAllowedHint, setShowGeolocationNotAllowedHint] =
     useState(false);
 
@@ -63,7 +64,7 @@ function HomePageContent() {
   const initFocusedData = () => {
     if (!weatherContext.cachedData?.length) return;
 
-    setFocusedCity(weatherContext.cachedData[0]);
+    updateFocusedCity(weatherContext.cachedData[0]);
   };
 
   const checkGeolocationPermission = () => {
@@ -93,16 +94,29 @@ function HomePageContent() {
 
   const searchCity = async (city: City) => {
     setSearchValue(city.name);
+
+    updateFocusedCity(undefined);
     weatherContext
       .requestWeatherForecast([city])
-      .then((x) => setFocusedCity(x[0]));
+      .then((x) => updateFocusedCity(x[0]));
+  };
+
+  const updateFocusedCity = (cityForecast?: CityForecast) => {
+    setFocusedCity(cityForecast);
+
+    setShowFocusedCity(true);
   };
 
   return (
     <div className={styles.body}>
       <header>
         <h1>Weather Forecast</h1>
-        {focusedCity && <CurrentLocationInfo city={focusedCity} />}
+        {showFocusedCity && (
+          <CurrentLocationInfo
+            city={focusedCity}
+            onClose={() => setShowFocusedCity(false)}
+          />
+        )}
         <SearchBar
           value={searchValue}
           setValue={(value) => {
