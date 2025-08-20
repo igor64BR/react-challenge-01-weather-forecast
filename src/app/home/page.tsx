@@ -1,6 +1,5 @@
 "use client";
 
-import LensIcon from "@/icon/LensIcon";
 import "../globals.css";
 import styles from "./page.module.css";
 import backgroundStyles from "./background.module.css";
@@ -13,22 +12,27 @@ import {
   WeatherForecastContextProvider,
 } from "@/services/WeatherForecast.service";
 import Loading from "@/components/Loading/Loading";
-import CurrentLocationInfo from "./_components/CurrentLocationInfo";
+import CurrentLocationInfo from "./_components/CurrentLocationInfo/CurrentLocationInfo";
+import SearchBar from "@/components/SearchBar/SearchBar";
+import {
+  LocationSearcherContext,
+  LocationSearcherContextProvider,
+} from "@/services/LocationSearcher.service";
+import { OptionProps } from "@/components/SearchBar/_components/Option";
+import { City } from "@/utils/constants/capitals";
 
 function HomePageContent() {
   const [searchValue, setSearchValue] = useState("");
+  const [searchOptions, setSearchOptions] = useState<OptionProps[]>([]);
+
   const [forecastData, setForecastData] = useState<CityForecast[]>();
+  const [focusedCity, setFocusedCity] = useState<CityForecast>();
   const [showGeolocationNotAllowedHint, setShowGeolocationNotAllowedHint] =
     useState(false);
 
   const geoContext = useContext(GeolocationContext);
   const weatherContext = useContext(WeatherForecastContext);
-
-  const searchCity = async () => {
-    const response = await weatherContext.requestWeatherForecast();
-
-    console.log(response);
-  };
+  const locationContext = useContext(LocationSearcherContext);
 
   useEffect(() => {
     checkGeolocationPermission();
@@ -37,6 +41,30 @@ function HomePageContent() {
   useEffect(() => {
     requestForecast();
   }, [geoContext.cities]);
+
+  useEffect(() => {
+    initFocusedData();
+  }, [weatherContext]);
+
+  const searchCities = async (value: string) => {
+    if (value.length < 3) return;
+
+    const result = await locationContext.searchLocation(value);
+
+    setSearchOptions(
+      result.map((x, i) => ({
+        id: i,
+        onClick: searchCity,
+        value: x,
+      }))
+    );
+  };
+
+  const initFocusedData = () => {
+    if (!weatherContext.cachedData?.length) return;
+
+    setFocusedCity(weatherContext.cachedData[0]);
+  };
 
   const checkGeolocationPermission = () => {
     if (!geoContext.permissions.hasLoadedPermission) return;
@@ -50,39 +78,39 @@ function HomePageContent() {
     const { canAccessGeolocation, hasLoadedPermission } =
       geoContext.permissions;
 
-    if (!hasLoadedPermission) return;
+    const permissions = [
+      hasLoadedPermission,
+      canAccessGeolocation,
+      geoContext.cities.length,
+    ];
 
-    if (!canAccessGeolocation) return;
+    if (permissions.some((x) => !x)) return;
 
-    if (!geoContext.cities.length) return;
-
-    const forecastData = await weatherContext.requestWeatherForecast();
+    const forecastData = await weatherContext.requestMainCitiesForecast();
 
     setForecastData(forecastData);
+  };
+
+  const searchCity = async (city: City) => {
+    setSearchValue(city.name);
+    weatherContext
+      .requestWeatherForecast([city])
+      .then((x) => setFocusedCity(x[0]));
   };
 
   return (
     <div className={styles.body}>
       <header>
         <h1>Weather Forecast</h1>
-        {weatherContext.cachedData?.length && (
-          <CurrentLocationInfo city={weatherContext.cachedData[0]} />
-        )}
-        <div className={styles.searchBar}>
-          <input
-            type="text"
-            id="search"
-            name="search"
-            placeholder="Search for your city"
-            value={searchValue}
-            onChange={(e) => setSearchValue(e.target.value)}
-          />
-          <label htmlFor="search" id={styles.lensIconContainer}>
-            <button onClick={() => searchCity()}>
-              <LensIcon />
-            </button>
-          </label>
-        </div>
+        {focusedCity && <CurrentLocationInfo city={focusedCity} />}
+        <SearchBar
+          value={searchValue}
+          setValue={(value) => {
+            setSearchValue(value);
+            searchCities(value);
+          }}
+          options={searchOptions}
+        />
       </header>
       <main>
         <h1>Main Cities</h1>
@@ -119,16 +147,22 @@ function HomePageContent() {
           onDismiss={() => setShowGeolocationNotAllowedHint(false)}
         />
       )}
-      <div className={`${backgroundStyles.background} ${backgroundStyles.bg}`}></div>
-      <div className={`${backgroundStyles.backgroundFilter} ${backgroundStyles.bg}`}></div>
+      <div
+        className={`${backgroundStyles.background} ${backgroundStyles.bg}`}
+      ></div>
+      <div
+        className={`${backgroundStyles.backgroundFilter} ${backgroundStyles.bg}`}
+      ></div>
     </div>
   );
 }
 
 export default function HomePage() {
   return (
-    <WeatherForecastContextProvider>
-      <HomePageContent />
-    </WeatherForecastContextProvider>
+    <LocationSearcherContextProvider>
+      <WeatherForecastContextProvider>
+        <HomePageContent />
+      </WeatherForecastContextProvider>
+    </LocationSearcherContextProvider>
   );
 }

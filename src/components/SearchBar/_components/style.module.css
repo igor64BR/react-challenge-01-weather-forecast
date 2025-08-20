@@ -1,0 +1,24 @@
+.body {
+  background-color: var(--foreground);
+  color: var(--background);
+  width: 100%;
+
+  padding: 0.3rem 0.5rem;
+
+  outline: none;
+  border: none;
+  text-align: left;
+  font-size: 1rem;
+
+  cursor: pointer;
+}
+
+.body:nth-child(even) {
+    background-color: color-mix(in srgb, var(--foreground) 90%, black);
+}
+
+.body p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

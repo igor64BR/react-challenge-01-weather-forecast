@@ -1,8 +1,9 @@
 import { createContext, useEffect, useState } from "react";
 import capitals, {
-  Capital,
+  City,
   getCapitalsByClosests,
 } from "@/utils/constants/capitals";
+import openweathermap from "@/utils/apiRequestFormatter/openWeatherMapActions";
 
 type GeolocationContextProviderProps = {
   children: React.ReactNode;
@@ -11,7 +12,7 @@ type GeolocationContextProviderProps = {
 type GeolocationContextType = {
   permissions: GeolocationPermissions;
   position?: GeolocationPosition;
-  cities: Capital[];
+  cities: City[];
 };
 
 type GeolocationPermissions = {
@@ -36,7 +37,9 @@ export const GeolocationContextProvider = ({
 
   const [permissions, setPermissions] = useState(defaultPermissions);
   const [position, setPosition] = useState<GeolocationPosition | undefined>();
-  const [cities, setCities] = useState<Capital[]>([]);
+  const [cities, setCities] = useState<City[]>([]);
+
+  const openWeatherMap = openweathermap();
 
   useEffect(() => {
     requestGeolocation();
@@ -89,31 +92,23 @@ export const GeolocationContextProvider = ({
 
     const capitalsOrderedByDistance = await getCapitalsByClosests(position!);
 
-    setCities([
-      currentLocation,
-      ...capitalsOrderedByDistance,
-    ]);
+    setCities([currentLocation, ...capitalsOrderedByDistance]);
   };
 
-  const retrieveCurrentLocationInfo = async (): Promise<Capital> => {
+  const retrieveCurrentLocationInfo = async (): Promise<City> => {
     const { latitude, longitude } = position!;
 
-    const data = await fetch(
-      `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`
-    ).then((x) => x.json());
-
-    const currentCityName = data.address.city || data.address.town || data.address.village;
-    const country = data.address.country;
-    const state = data.address.state;
+    const { name, country, state } =
+      await openWeatherMap.requestCurrentLocation(latitude, longitude);
 
     return {
       latitude,
       longitude,
-      name: currentCityName,
+      name,
       country,
       state,
-    }
-  }
+    };
+  };
 
   return (
     <GeolocationContext.Provider
