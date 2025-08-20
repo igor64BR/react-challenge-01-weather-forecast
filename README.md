@@ -7,7 +7,7 @@
 
 ## 🌤️ Overview
 
-This project is a solution to the [1STi front-end challenge](https://github.com/1STi/desafio-frontend/): create a beautiful, responsive weather forecast app that consumes public weather APIs. The main experience is available on the **Home page** (`/home`).
+This project is a solution to the [1STi front-end challenge](https://github.com/1STi/desafio-frontend/): create a beautiful, responsive weather forecast app that consumes public weather APIs.
 
 **Features:**
 - View weather forecasts for main cities

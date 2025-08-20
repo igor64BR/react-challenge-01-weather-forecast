@@ -1,7 +1,6 @@
 declare const styles: {
-  readonly "bgImg": string;
   readonly "body": string;
-  readonly "loginContainer": string;
+  readonly "loadingContainer": string;
 };
 export = styles;
 

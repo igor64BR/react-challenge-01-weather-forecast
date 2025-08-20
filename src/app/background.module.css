@@ -8,7 +8,7 @@
 }
 
 .background {
-  background: url("../../../public/media/img/lofi-girl/loifi-girl-night.jpg");
+  background: url("../../public/media/img/lofi-girl/loifi-girl-night.jpg");
   filter: blur(8px);
   background-size: cover;
 }
