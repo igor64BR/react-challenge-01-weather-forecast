@@ -3,6 +3,8 @@
 
 > A modern weather forecast web app built as a front-end challenge. Powered by Next.js, React, and TypeScript. Get real-time weather for major cities and search for any location using OpenMeteo and OpenWeatherMap APIs.
 
+The app was deployed [here](https://react-challenge-01-weather-forecast.vercel.app/)
+
 ---
 
 ## 🌤️ Overview
