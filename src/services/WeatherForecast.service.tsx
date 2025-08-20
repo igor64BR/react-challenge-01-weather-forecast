@@ -31,9 +31,7 @@ type WeatherForecastContextProviderProps = {
 
 type WeatherForecastContextType = {
   requestMainCitiesForecast: () => Promise<CityForecast[]>;
-  requestWeatherForecast:
-    | ((coords: City) => Promise<CityForecast>)
-    | ((coords: City[]) => Promise<CityForecast[]>);
+  requestWeatherForecast: (coords: City[]) => Promise<CityForecast[]>;
   cachedData?: CityForecast[];
 };
 
@@ -91,13 +89,9 @@ const WeatherForecastContextProviderProps = ({
     };
   };
 
-  async function requestWeatherForecast(coords: City): Promise<CityForecast>;
   async function requestWeatherForecast(
     coords: City[]
-  ): Promise<CityForecast[]>;
-  async function requestWeatherForecast(
-    coords: City | City[]
-  ): Promise<CityForecast | CityForecast[]> {
+  ): Promise<CityForecast[]> {
     const paramsFields = {
       daily: ["temperature_2m_max", "temperature_2m_min"],
       current: [
@@ -109,22 +103,14 @@ const WeatherForecastContextProviderProps = ({
       timezone: "auto",
     };
 
-    const params = Array.isArray(coords)
-      ? {
-          latitude: coords.map((x) => x.latitude),
-          longitude: coords.map((x) => x.longitude),
-          ...paramsFields,
-        }
-      : {
-          latitude: coords.latitude,
-          longitude: coords.longitude,
-          ...paramsFields,
-        };
+    const params = {
+      latitude: coords.map((x) => x.latitude),
+      longitude: coords.map((x) => x.longitude),
+      ...paramsFields,
+    };
 
     const url = "https://api.open-meteo.com/v1/forecast";
     const responses = await fetchWeatherApi(url, params);
-
-    if (!Array.isArray(coords)) return formatResponse(coords, responses[0]);
 
     const outputData: CityForecast[] = [];
 

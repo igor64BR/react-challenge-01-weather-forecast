@@ -3,10 +3,9 @@ import styles from "./style.module.css";
 import LensIcon from "@/icon/LensIcon";
 import Option, { OptionProps } from "./_components/Option";
 
-interface SearchBarProps {
+export interface SearchBarProps {
   value: string;
   setValue: (value: string) => void;
-  onSearch: (value: string) => void;
   options: OptionProps[];
 }
 
@@ -29,7 +28,7 @@ const SearchBar: FunctionComponent<SearchBarProps> = (props) => {
           onChange={(e) => props.setValue(e.target.value)}
         />
         <label htmlFor="search" id={styles.lensIconContainer}>
-          <button onClick={() => props.onSearch(props.value)}>
+          <button>
             <LensIcon />
           </button>
         </label>

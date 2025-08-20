@@ -14,9 +14,17 @@ import {
 import Loading from "@/components/Loading/Loading";
 import CurrentLocationInfo from "./_components/CurrentLocationInfo/CurrentLocationInfo";
 import SearchBar from "@/components/SearchBar/SearchBar";
+import {
+  LocationSearcherContext,
+  LocationSearcherContextProvider,
+} from "@/services/LocationSearcher.service";
+import { OptionProps } from "@/components/SearchBar/_components/Option";
+import { City } from "@/utils/constants/capitals";
 
 function HomePageContent() {
   const [searchValue, setSearchValue] = useState("");
+  const [searchOptions, setSearchOptions] = useState<OptionProps[]>([]);
+
   const [forecastData, setForecastData] = useState<CityForecast[]>();
   const [focusedCity, setFocusedCity] = useState<CityForecast>();
   const [showGeolocationNotAllowedHint, setShowGeolocationNotAllowedHint] =
@@ -24,6 +32,7 @@ function HomePageContent() {
 
   const geoContext = useContext(GeolocationContext);
   const weatherContext = useContext(WeatherForecastContext);
+  const locationContext = useContext(LocationSearcherContext);
 
   useEffect(() => {
     checkGeolocationPermission();
@@ -36,6 +45,24 @@ function HomePageContent() {
   useEffect(() => {
     initFocusedData();
   }, [weatherContext]);
+
+  useEffect(() => {
+    searchCities();
+  }, [searchValue]);
+
+  const searchCities = async () => {
+    if (searchValue.length < 3) return;
+
+    const result = await locationContext.searchLocation(searchValue);
+
+    setSearchOptions(
+      result.map((x, i) => ({
+        id: i,
+        onClick: searchCity,
+        value: x,
+      }))
+    );
+  };
 
   const initFocusedData = () => {
     if (!weatherContext.cachedData?.length) return;
@@ -66,10 +93,11 @@ function HomePageContent() {
     setForecastData(forecastData);
   };
 
-  const searchCity = async () => {
-    const response = await weatherContext.requestMainCitiesForecast();
-
-    console.log(response);
+  const searchCity = async (city: City) => {
+    setSearchValue(city.name);
+    weatherContext
+      .requestWeatherForecast([city])
+      .then((x) => setFocusedCity(x[0]));
   };
 
   return (
@@ -80,7 +108,7 @@ function HomePageContent() {
         <SearchBar
           value={searchValue}
           setValue={setSearchValue}
-          onSearch={searchCity}
+          options={searchOptions}
         />
       </header>
       <main>
@@ -130,8 +158,10 @@ function HomePageContent() {
 
 export default function HomePage() {
   return (
-    <WeatherForecastContextProvider>
-      <HomePageContent />
-    </WeatherForecastContextProvider>
+    <LocationSearcherContextProvider>
+      <WeatherForecastContextProvider>
+        <HomePageContent />
+      </WeatherForecastContextProvider>
+    </LocationSearcherContextProvider>
   );
 }
