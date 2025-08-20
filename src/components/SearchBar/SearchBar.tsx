@@ -1,4 +1,4 @@
-import { FunctionComponent, ReactNode, useState } from "react";
+import { FunctionComponent, useState } from "react";
 import styles from "./style.module.css";
 import LensIcon from "@/icon/LensIcon";
 import Option, { OptionProps } from "./_components/Option";

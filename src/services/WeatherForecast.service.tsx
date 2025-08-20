@@ -4,8 +4,9 @@ import {
   GeolocationContextProvider,
 } from "./Geolocation.service";
 import { fetchWeatherApi } from "openmeteo";
-import { City, Coordinates } from "@/utils/constants/capitals";
+import { City } from "@/utils/constants/capitals";
 import { WeekdayContext, WeekdayContextProvider } from "./Weekday.service";
+import { WeatherApiResponse } from "@openmeteo/sdk/weather-api-response";
 
 export type CityForecast = City & {
   state: string;
@@ -47,7 +48,10 @@ const WeatherForecastContextProviderProps = ({
 
   const [cachedData, setCachedData] = useState<CityForecast[]>();
 
-  const formatResponse = (city: City, data: any): CityForecast => {
+  const formatResponse = (
+    city: City,
+    data: WeatherApiResponse
+  ): CityForecast => {
     const forecastDays = 4;
     const days = weekdayContext.getDaysFromToday(forecastDays);
 

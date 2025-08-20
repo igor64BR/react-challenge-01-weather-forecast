@@ -28,13 +28,13 @@ export const LocationSearcherContextProvider = ({
       limit
     );
 
-    return response.map((x: any) => ({
-        name: x.local_names?.pt ?? x.name,
-        state: x.state,
-        country: x.country,
-        latitude: x.lat,
-        longitude: x.lon
-    } satisfies City))
+    return response.map((city) => ({
+      name: city.local_names?.pt ?? city.name,
+      state: city.state,
+      country: city.country,
+      latitude: city.lat,
+      longitude: city.lon,
+    }));
   };
 
   return (

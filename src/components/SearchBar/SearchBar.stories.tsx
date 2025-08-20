@@ -1,7 +1,6 @@
 import { Meta, StoryObj } from "@storybook/nextjs-vite";
 import SearchBar from "./SearchBar";
-import { City } from "@/utils/constants/capitals";
-import Option, { OptionProps } from "./_components/Option";
+import { OptionProps } from "./_components/Option";
 
 const meta = {
   component: SearchBar,
@@ -18,8 +17,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    onSearch: console.log,
-    setValue: console.log,  
+    setValue: console.log,
   },
 };
 
