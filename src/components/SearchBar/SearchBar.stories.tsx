@@ -43,7 +43,17 @@ const generateDefaultOptions = (quantity: number): OptionProps[] => {
 export const WithSearch: Story = {
   args: {
     ...Default.args,
-    value: "City",
     options: generateDefaultOptions(8),
+  },
+};
+
+export const WithSearchWithNoState: Story = {
+  args: {
+    ...Default.args,
+    options: generateDefaultOptions(8).map((x) => {
+      x.value.state = "";
+
+      return x;
+    }),
   },
 };

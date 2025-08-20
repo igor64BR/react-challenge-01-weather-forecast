@@ -93,7 +93,7 @@ function HomePageContent() {
   };
 
   const searchCity = async (city: City) => {
-    setSearchValue(city.name);
+    setSearchValue("");
 
     updateFocusedCity(undefined);
     weatherContext

@@ -12,7 +12,9 @@ export interface OptionProps {
 const Option: FunctionComponent<OptionProps> = (props) => {
   const formatLabel = () => {
     const { value } = props;
-    return [value.name, value.state, value.country].join(", ");
+    return [value.name, value.state, value.country]
+      .filter((x) => x?.length > 0)
+      .join(", ");
   };
   return (
     <button className={styles.body} onClick={() => props.onClick(props.value)}>

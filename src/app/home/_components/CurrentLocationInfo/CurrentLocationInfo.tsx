@@ -28,9 +28,9 @@ const CurrentLocationInfo: FunctionComponent<CurrentLocationInfoProps> = ({
     <div className={styles.body}>
       <div className={styles.header}>
         <span>
-          <span>{city.name}, </span>
-          <span>{city.state} -&nbsp;</span>
-          <span>{city.country}</span>
+          <span>{city.name}</span>
+          {city.state && <span>, {city.state}</span>}
+          <span>&nbsp;- {city.country}</span>
         </span>
         <button className={styles.closeButton} onClick={() => onClose()}>
           <CloseIcon />
